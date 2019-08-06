@@ -14,6 +14,9 @@ import {CachedImage} from 'react-native-cached-image';
 
 /*const MyNavigator = createStackNavigator(
     {
+
+            SignUp: SignUpScreen,
+      Shuffle: ShuffleScreen,		
       SignUp: SignUpScreen,
       Shuffle: ShuffleScreen,
     },
