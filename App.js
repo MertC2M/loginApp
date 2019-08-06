@@ -133,7 +133,7 @@ class SecondApp extends React.Component{
     saveImageFromGallery = () => {
         this.setState({loading: true});
         if (this.state.imagePath !== null) {
-            new FetchPhoto(this.state.imagePath, function (photo_key) {
+            FetchPhoto(this.state.imagePath, function (photo_key) {
                 //parameters["photo_url"] = photo_key;
                 //this.updateData(parameters);
                 if(this.state.ready === 'LoggedIn'){
@@ -231,7 +231,7 @@ class SecondApp extends React.Component{
             return true;
         }
     }
-/*commit test*/
+
     login(nickname, password) {
         if(this.checkForNicknameandPassword(this.state.ready)){
             FetchGet("https://0idl79raql.execute-api.us-west-1.amazonaws.com/api/login", {
@@ -262,6 +262,10 @@ class SecondApp extends React.Component{
         }else{
             // do nothing
         }
+    }
+
+    test(test1,test){
+        return {status: 'OK'}
     }
 
     signUp(nickname, password, firstName, lastName, phoneNumber, sex, profilePhotoUrl) {
