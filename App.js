@@ -264,10 +264,6 @@ class SecondApp extends React.Component{
         }
     }
 
-    test(test1,test){
-        return {status: 'OK'}
-    }
-
     signUp(nickname, password, firstName, lastName, phoneNumber, sex, profilePhotoUrl) {
         if(this.checkForNicknameandPassword()){
             FetchGet("https://0idl79raql.execute-api.us-west-1.amazonaws.com/api/register/create", {
