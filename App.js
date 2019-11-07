@@ -2,53 +2,16 @@ import React, {Component} from 'react';
 import {Alert, StyleSheet, Text, View, ScrollView, SafeAreaView, TextInput, TouchableOpacity, ActivityIndicator, ActionSheetIOS, Image} from 'react-native';
 
 import HeaderLogin from './src/components/HeaderLogin';
-//import SignUpScreen from './src/screens/SignUpScreen';
-//import ShuffleScreen from './src/screens/ShuffleScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import ShuffleScreen from './src/screens/ShuffleScreen';
 import {FetchGet, FetchPhoto} from "./src/utils/Fetch";
 import ImagePicker from 'react-native-image-crop-picker';
 import Permissions from 'react-native-permissions';
 import DialogAndroid from "react-native-dialogs";
 import AndroidOpenSettings from "react-native-android-open-settings";
-import {createBottomTabNavigator, createStackNavigator, createAppContainer} from "react-navigation";
+import {createStackNavigator, createAppContainer} from "react-navigation";
 import {CachedImage} from 'react-native-cached-image';
-
-/*const MyNavigator = createStackNavigator(
-    {	
-      SignUp: SignUpScreen,
-      Shuffle: ShuffleScreen,
-    },
-    {
-      initialRouteName: 'Shuffle'
-    }
-);
-export const Navigator = createAppContainer(MyNavigator);
-*/
-/*class ScreenComponentTwo extends React.Component {
-  static navigationOptions = {
-    headerTitle: 'Second screen',
-  };
-
-  render() {
-    return (
-        <View
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              borderWidth: 25,
-              borderColor: 'orange',
-            }}>
-          <Button
-              title="Go to three"
-              onPress={() =>
-                  this.props.navigation.navigate('SignUp', {
-                  })
-              }
-          />
-        </View>
-    );
-  }
-}
- */
+import SplashScreen from 'react-native-splash-screen'
 
 class SecondApp extends React.Component{
 
@@ -72,6 +35,7 @@ class SecondApp extends React.Component{
 
     componentDidMount(){
         this.checkGrantOfPermissions();
+        SplashScreen.hide();
     }
 
     checkGrantOfPermissions(){
@@ -353,7 +317,7 @@ class SecondApp extends React.Component{
     render() {
         if(this.state.ready === 'LoggedIn'){
             return(
-            <SafeAreaView style={{flex:1 , alignItems: 'center', backgroundColor: '#F5FCFF'}}>
+            <SafeAreaView style={{flex:1 , alignItems: 'center', flexDirection: "column", backgroundColor: '#F5FCFF'}}>
 
                     <View style={{ width: 154, height: 154, backgroundColor: "#ffffff", borderRadius: 77, shadowColor: "#000", shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 4, zIndex: 1, elevation: 1, marginTop: 16, position: "relative", overflow: "hidden",}}>
                         <TouchableOpacity style={{flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center"}}
@@ -389,6 +353,7 @@ class SecondApp extends React.Component{
                         width: 180,
                         shadowOpacity: 0.9,
                         borderRadius: 50,
+                        elevation: 20,
                     }} onPress={() => this.logOut()}>
                         <Text>Log Out</Text>
                     </TouchableOpacity>
@@ -404,7 +369,7 @@ class SecondApp extends React.Component{
                         <View style={{alignItems: 'center', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', backgroundColor: 'transparent'}}>
                             <View style={{justifyContent: 'flex-start', alignItems: 'center',flexDirection:'row'}}>
                                 <TextInput
-                                    style={{height: 40, width: 200, borderColor: 'gray', borderWidth: 1, shadowOpacity: 0.4,}}
+                                    style={{height: 40, width: 200, borderColor: 'gray', borderWidth: 1, shadowOpacity: 0.4, elevation: 20}}
                                     onChangeText={(nickname) => this.setState({nickname})}
                                     value={this.state.nickname}
                                     placeholder={'nickname'}
@@ -415,7 +380,7 @@ class SecondApp extends React.Component{
                             </View>
                             <View style={{justifyContent: 'flex-start', alignItems: 'center',flexDirection:'row'}}>
                                 <TextInput
-                                    style={{height: 40, width: 200, borderColor: 'gray', marginTop: 10, borderWidth: 1, shadowOpacity: 0.4,}}
+                                    style={{height: 40, width: 200, borderColor: 'gray', marginTop: 10, borderWidth: 1, shadowOpacity: 0.4, elevation: 20}}
                                     onChangeText={(password) => this.setState({password})}
                                     value={this.state.password}
                                     placeholder={'password'}
@@ -454,16 +419,13 @@ class SecondApp extends React.Component{
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.scrollView}>
                     <View style={{flexDirection: "column", alignItems: "center"}}>
-                        <View style={{width: 154, height: 154, backgroundColor: "#ffffff", borderRadius: 77, shadowColor: "#000", shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 4, zIndex: 1, elevation: 1, marginTop: 16, position: "relative", overflow: "hidden",}}>
+                        <View style={{width: 154, height: 154, backgroundColor: "#ffffff", borderRadius: 77, shadowColor: "#000", shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 4, zIndex: 1, elevation: 4, marginTop: 16, position: "relative", overflow: "hidden",}}>
                             <TouchableOpacity style={{flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center"}}
                                               onPress={this.onPhotoButtonPress}>
-
-
-
                                 <CachedImage
                                     source={this.state.imagePath === null ? {uri: this.state.profilePhotoUrl} : this.state.imagePath}
-                                    style={{width: 154, height: 154, borderRadius: 77}}
-                                    resizeMode={"contain"}/>
+                                    style={{ height: 154, width: 154, borderRadius:74}}
+                                    />
 
                                 <View style={{top: 0, left: 0, right: 0, bottom: 0, position: "absolute", zIndex: 9, backgroundColor: "rgba(0,0,0,0.4)", alignItems: "center", justifyContent: "center"}}>
                                     {this.state.loading ?
@@ -602,13 +564,38 @@ class SecondApp extends React.Component{
     }
 }
 
-export default class App extends Component<Props> {
+class App extends Component<Props> {
     render(){
         return(
             <SecondApp/>
         );
     }
 }
+
+const HomeStack = createStackNavigator({
+    Home: SecondApp,
+    SignUpScreen: SignUpScreen,
+    ShuffleScreen: ShuffleScreen,
+},{
+    headerMode: 'none',
+});
+
+const AppNavigator = createStackNavigator({
+    Home: {
+        screen: HomeStack
+    },
+    SignUpScreen: {
+        screen: SignUpScreen
+    },
+    ShuffleScreen: {
+        screen: ShuffleScreen
+    },
+}, {
+    initialRouteName: "SignUpScreen",
+    headerMode: 'none'
+});
+
+export default createAppContainer(AppNavigator);
 
 const styles = StyleSheet.create({
   container: {
