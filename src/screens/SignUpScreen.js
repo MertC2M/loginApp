@@ -10,7 +10,7 @@ import {
     Dimensions,
     Image,
     PanResponder,
-    TouchableOpacity, ActivityIndicator
+    TouchableOpacity
 } from 'react-native';
 import  ShuffleScreen from './ShuffleScreen';
 
