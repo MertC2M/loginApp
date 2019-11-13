@@ -165,7 +165,7 @@ class SecondApp extends React.Component{
                     'Please retry to login',
                     [
                         {
-                            text: 'OK!',
+                            text: 'OK',
                             onPress: () => console.log('Cancel Pressed'),
                             style: 'OK',
                         },
